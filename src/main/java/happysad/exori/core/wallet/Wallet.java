@@ -1,18 +1,12 @@
 package happysad.exori.core.wallet;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.util.encoders.Base64;
-import org.bouncycastle.util.encoders.Base64Encoder;
 import org.hibernate.annotations.GenericGenerator;
 
 import happysad.exori.core.utils.StringUtility;
