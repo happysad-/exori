@@ -55,8 +55,6 @@ public class Transaction
 		
 		inputs.forEach(i -> i.utxo = App.UTXOs.get(i.txOutputID));
 		
-		
-		
 		return false;
 	}
 }
