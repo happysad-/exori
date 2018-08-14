@@ -2,12 +2,16 @@ package happysad.exori.core.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 import org.bouncycastle.util.encoders.Base64Encoder;
 
@@ -40,6 +44,7 @@ public class StringUtility
 		}
 	}
 	
+	@Deprecated
 	public static String generateStringFromPublicKey(PublicKey key)
 	{
 		try
@@ -68,5 +73,48 @@ public class StringUtility
 		}
 		
 		return null;
+	}
+	
+	public static byte[] applyECDSASignature(PrivateKey privateKey, String input)
+	{
+		Signature dsa;
+		
+		byte[] output = new byte[0];
+		
+		try
+		{
+			dsa = Signature.getInstance("ECDSA", "BC");
+			dsa.initSign(privateKey);
+			dsa.update(input.getBytes());
+			output = dsa.sign();
+		}
+		catch(Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return output;
+	}
+	
+	public static boolean verifyECDSASignature(PublicKey publicKey, String data, byte[] signature)
+	{
+		try
+		{
+			Signature ecdsaVerify = Signature.getInstance("ECDSA", "BC");
+			
+			ecdsaVerify.initVerify(publicKey);
+			ecdsaVerify.update(data.getBytes());
+			
+			return ecdsaVerify.verify(signature);
+		}
+		catch(Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static String getStringFromKey(Key key)
+	{
+		return Base64.getEncoder().encodeToString(key.getEncoded());
 	}
 }

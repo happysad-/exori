@@ -1,12 +1,17 @@
 package happysad.exori.core;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gson.GsonBuilder;
 
+import happysad.exori.core.transaction.TransactionOutput;
 import happysad.exori.core.utils.StringUtility;
 import happysad.exori.core.wallet.Wallet;
 
 public class App
 {
+	public static Map<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>();
 	public static void main(String[] args)
 	{
 //		System.out.println("TEST: " + StringUtility.generateSHA256Hash("TEST"));
@@ -45,8 +50,8 @@ public class App
 		
 //		System.out.println("Private Key: " + wallet.privateKey.toString());
 		
-		System.out.println("Public Key: " + StringUtility.generateStringFromPublicKey(wallet.getPublicKey()));
-		
+//		System.out.println("Public Key: " + StringUtility.generateStringFromPublicKey(wallet.getPublicKey()));
+		System.out.println("Public Key: " + StringUtility.getStringFromKey(wallet.getPublicKey()));
 		/* Hibernate Testing */
 		
 //		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
